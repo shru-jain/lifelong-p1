@@ -168,6 +168,5 @@ document.addEventListener('DOMContentLoaded', function() {
       });
   };
   
-
   });
   
