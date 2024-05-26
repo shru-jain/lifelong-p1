@@ -6,7 +6,6 @@ function updateParagraph(htmlElement) {
   requestData.append('new_paragraph_content', newContent);
   console.log(newContent)
 
-
   // make a fetch() POST request
   fetch('/update_paragraph/', {
       method: 'POST',
