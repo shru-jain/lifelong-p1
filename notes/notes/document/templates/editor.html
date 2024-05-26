@@ -10,33 +10,21 @@
         <style>
             .highlight-button {
                 display: inline-block;
-                padding: 5px 11px;
                 background-color: #007bff;
                 color: #fff;
-                border: none;
-                border-radius: 3px;
-                cursor: pointer;
-                margin-left: 5px; /* Adjust margin as needed */
+                cursor: pointer;/* Adjust margin as needed */
             }
             .add-note-button {
                 display: inline-block;
-                padding: 5px 10px;
                 background-color: #739710;
                 color: #fff;
-                border: none;
-                border-radius: 3px;
                 cursor: pointer;
-                margin-left: 5px; /* Adjust margin as needed */
             }
             .done-button {
                 display: inline-block;
-                padding: 5px 23px;
                 background-color: #575757;
                 color: #fff;
-                border: none;
-                border-radius: 3px;
-                cursor: pointer;
-                margin-left: 5px; /* Adjust margin as needed */
+                cursor: pointer; 
             }
 
         </style>
@@ -47,12 +35,6 @@
         <nav class="navbar is-dark">
             <div class="navbar-brand">
                 <a href="{% url 'editor' %}" class="navbar-item">Notes</a>
-            </div>
-
-            <div class="navbar-menu">
-                <div class="navbar-end">
-                    <a href="{% url 'editor' %}?docid=0" class="navbar-item">New note</a>
-                </div>
             </div>
         </nav>
 
@@ -67,6 +49,7 @@
                         <p class="menu-label">Notes</p>
 
                         <ul class="menu-list">
+                            <a class = "button is-primary" href="{% url 'editor' %}?docid=0">New note</a>
                             {% for doc in documents %}
                                 <li>
                                     <a href="{% url 'editor' %}?docid={{ doc.id }}">{{ doc.title }}</a>
@@ -114,11 +97,16 @@
 
                         <div class="field is-grouped">
                             <div class="control">
-                                <button class="button is-primary">Save</button>
+                                <button type = "submit" class="button is-success">Save</button>
                             </div>
+                            <div class="control">
+                                <button type = "button" class="button" id="summarizeButton">Summarize Quote</button>
+                            </div>
+                            
                             {% if document %}
+                                
                                 <div class="control">
-                                    <a href="{% url 'delete_document' document.id %}" class="button is-danger">Delete</a>
+                                    <a href="{% url 'delete_document' document.id %}" class="button is-danger">Delete</a>  
                                 </div>
                             {% endif %}
                         </div>

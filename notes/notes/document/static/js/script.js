@@ -32,7 +32,7 @@ function updateParagraph(htmlElement) {
 
 
   // Make a fetch() POST request
-  fetch('/update-paragraph/', {
+  fetch('/update_paragraph/', {
       method: 'POST',
       body: requestData,
       headers: {
@@ -80,28 +80,33 @@ document.addEventListener('DOMContentLoaded', function() {
         var highlightButton = document.createElement('button');
         highlightButton.innerText = 'Highlight';
         highlightButton.classList.add('highlight-button');
+        highlightButton.classList.add('button');
+        highlightButton.classList.add('is-small');
         highlightButton.style.position = 'absolute';
         highlightButton.style.left = rect.left + 'px';
-        highlightButton.style.top = rect.top - 60 + 'px';
+        highlightButton.style.top = rect.top - 70 + 'px';
  
         document.getElementById('text-displayed').appendChild(highlightButton);
 
         var takeNoteButton = document.createElement('button');
         takeNoteButton.innerText = 'Add Note';
         takeNoteButton.classList.add('add-note-button');
+        takeNoteButton.classList.add('button');
+        takeNoteButton.classList.add('is-small');
         takeNoteButton.style.position = 'absolute';
         takeNoteButton.style.left = rect.left + 'px';
-        takeNoteButton.style.top = rect.top - 30 + 'px';
+        takeNoteButton.style.top = rect.top - 35 + 'px';
         document.getElementById('text-displayed').appendChild(takeNoteButton);
         
         var doneButton = document.createElement('button');
         doneButton.innerText = 'Done';
         doneButton.classList.add('done-button');
+        doneButton.classList.add('button');
+        doneButton.classList.add('is-small');
         doneButton.style.position = 'absolute';
         doneButton.style.left = rect.left + 'px';
         doneButton.style.top = rect.top + 'px';
         document.getElementById('text-displayed').appendChild(doneButton);
-
         
         highlightButton.onclick = function(e) {
             var span = document.createElement('span');
@@ -150,8 +155,44 @@ document.addEventListener('DOMContentLoaded', function() {
       doneButton.addEventListener('mouseup', function(event) {
         event.stopPropagation();
       });
-
       }
     });
+
+    const summarizeButton = document.getElementById('summarizeButton') 
+
+    summarizeButton.onclick = function (e) {
+      console.log('going into the function')
+      // Get the text from the textarea
+      var text = document.querySelector('input.input[name="quote"]').value;
+  
+      // Make a POST request using Fetch API
+      fetch("/summarize_text/", {
+          method: "POST",
+          headers: {
+              "Content-Type": "application/json"
+          },
+          body: JSON.stringify({ text: text })
+      })
+      .then(response => {
+          if (!response.ok) {
+              console.log('stuck')
+              throw new Error('Network response was not ok');
+              
+          }
+          return response.json();
+      })
+      .then(data => {
+          // Update the textarea with the summary
+          console.log("hereeeee")
+          document.querySelector('textarea[name="content"]').value = data.summary;
+      })
+      .catch(error => {
+          console.log('Error:', error);
+      });
+  };
+  
+
+    
+
   });
   

@@ -16,11 +16,13 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from document.views import editor, delete_document, update_paragraph
+from document.views import editor, delete_document, update_paragraph, summarize_text
 
 urlpatterns = [
     path('', editor, name='editor'),
     path('delete_document/<int:docid>/', delete_document, name='delete_document'),
-    path('update-paragraph/', update_paragraph, name='update_paragraph'),
+    path('update_paragraph/', update_paragraph, name='update_paragraph'),
     path('admin/', admin.site.urls),
+    path('summarize_text/', summarize_text, name = 'summarize_text')
+
 ]
